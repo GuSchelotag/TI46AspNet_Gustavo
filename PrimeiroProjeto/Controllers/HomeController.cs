@@ -13,6 +13,11 @@ namespace PrimeiroProjeto.Controllers
             _logger = logger;
         }
 
+        public IActionResult Noticias()
+        {
+            return View("Home/DropDown/Noticias");
+        }
+
         public IActionResult Index()
         {
             return View();
