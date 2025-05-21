@@ -1,0 +1,65 @@
+﻿@model X.PagedList.IPagedList<PrimeiroProjeto.Models.Cliente>
+
+@{
+    ViewData["Title"] = "Buscar Clientes";
+}
+<div class="container-fluid d-flex  flex-column ">
+    <form asp-controller="Cliente" asp-action="BuscarClientes" method="get">
+        <input type="text" name="searchString" value="@Context.Request.Query["searchString"]" placeholder="Digite o nome do cliente..." />
+        <button type="submit">Buscar</button>
+    </form>
+
+    @if (Model.Any())
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Telefone</th>
+                    <th>Email</th>
+                    <th>Data de Cadastro</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var cliente in Model)
+                {
+                    <tr>
+                        <td>@cliente.Nome</td>
+                        <td>@cliente.Telefone</td>
+                        <td>@cliente.Email</td>
+                        <td>@cliente.DataCadastro.ToString("dd/MM/yyyy")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        
+@* <div class="row">
+    <div class="col text-center"> SE QUISER CENTRALIZAR *@
+
+        <div>
+            @Html.PagedListPager(Model, page => Url.Action("BuscarClientes", new
+                {
+                    page,
+                    searchString = ViewBag.SearchString
+                }),
+                     new PagedListRenderOptions
+        {
+            UlElementClasses = new[] { "pagination" },
+            LiElementClasses = new[] { "page-item" },
+            PageClasses = new[] { "page-link" },
+            DisplayLinkToFirstPage = PagedListDisplayMode.Always,
+            DisplayLinkToLastPage = PagedListDisplayMode.Always,
+            DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+            DisplayLinkToNextPage = PagedListDisplayMode.Always,
+            DisplayEllipsesWhenNotShowingAllPageNumbers = true,
+            MaximumPageNumbersToDisplay = 5
+        })
+        </div>
+
+    }
+    else
+    {
+        <p>Nenhum cliente encontrado.</p>
+    }
+
+</div>

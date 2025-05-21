@@ -1,12 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PrimeiroProjeto.Models;
 
 namespace PrimeiroProjeto.Data
 {
-    public class Context : DbContext
+    public class Context(DbContextOptions options) : DbContext(options)
     {
-        public Context(DbContextOptions options) : base(options)
-        {
-
-        }
+        public DbSet<Cliente> Clientes { get; set; }
     }
 }

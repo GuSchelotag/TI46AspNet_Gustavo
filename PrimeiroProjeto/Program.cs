@@ -5,10 +5,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-// Adiciona o contexto do banco de dados ao contêiner de serviços
+// Adiciona o contexto do banco de dados ao container de serviços
 builder.Services.AddDbContext<Context>(options =>
-    options.UseSqlServer(
-        builder.Configuration.GetConnectionString("strConn")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("strConn")));
 
 
 var app = builder.Build();
@@ -32,6 +31,5 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
-
 
 app.Run();
