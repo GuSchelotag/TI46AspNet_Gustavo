@@ -1,0 +1,76 @@
+﻿@model X.PagedList.IPagedList<PrimeiroProjeto.Models.Produto>
+
+@{
+    ViewData["Title"] = "Buscar Produtos";
+}
+<div class="container-fluid d-flex  flex-column ">
+
+    <form asp-controller="Produto" asp-action="BuscarProdutos" method="get">
+        <input class="w-50" type="text" name="searchString" value="@Context.Request.Query["searchString"]" placeholder="Digite o nome do produto..." />
+        <button class="w-25 bg-primary" type="submit">Buscar</button>
+    </form>
+
+    @if (Model.Any())
+    {
+        <table class="table my-1 text-black fw-light table-striped">
+            <thead class="table-light border-1">
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.First().Id)</th>
+                    <th>@Html.DisplayNameFor(model => model.First().Nome)</th>
+                    <th>@Html.DisplayNameFor(model => model.First().Quantidade)</th>
+                    <th>@Html.DisplayNameFor(model => model.First().Categoria)</th>
+                    <th>@Html.DisplayNameFor(model => model.First().Preco)</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody class="border-2">
+                @foreach (var produto in Model)
+                {
+                    <tr>
+                        <td>@produto.Id</td>
+                        <td>@produto.Nome</td>
+                        <td>@produto.Quantidade</td>
+                        <td>@produto.Categoria</td>
+                        <td>@produto.Preco</td>
+                        <td class="d-flex gap-3 ">
+                            <a asp-action="Alterar" asp-route-Id="@produto.Id" class="text-dark"><i class="bi bi-pencil-square"></i></a>
+                            @* <a asp-action="Alterar" asp-route-Id="@produto.Id" class="btn btn-outline-danger text-dark">Alterar</a> *@
+                            <form asp-action="Deletar" asp-route-id="@produto.Id" method="post" class="d-inline"
+                                  onsubmit="return confirm('Tem certeza que deseja excluir este produto?');">
+                                <button type="submit" class="btn btn-link p-0 m-0 align-baseline text-black" title="Excluir">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="">
+            @Html.PagedListPager(Model, page => Url.Action("BuscarProdutos", new
+                {
+                    page,
+                    searchString = ViewBag.SearchString
+                }),
+                     new PagedListRenderOptions
+        {
+            UlElementClasses = new[] { "pagination justify-content-end fw-bold m-0" },
+            LiElementClasses = new[] { "page-item" },
+            PageClasses = new[] { "page-link" },
+            DisplayLinkToFirstPage = PagedListDisplayMode.Always,
+            DisplayLinkToLastPage = PagedListDisplayMode.Always,
+            DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+            DisplayLinkToNextPage = PagedListDisplayMode.Always,
+            DisplayEllipsesWhenNotShowingAllPageNumbers = true,
+            MaximumPageNumbersToDisplay = 5
+        })
+        </div>
+
+    }
+    else
+    {
+        <p>Nenhum produto encontrado.</p>
+    }
+
+</div>

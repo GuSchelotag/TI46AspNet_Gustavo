@@ -1,0 +1,44 @@
+﻿@{
+    ViewData["Title"] = "Clientes";
+}
+
+<div class="container py-5">
+    <div class="row align-items-center mb-4">
+        <div class="col-md-8">
+            <h1 class="display-5 fw-bold text-primary">
+                <i class="bi bi-people"></i> Área de Clientes
+            </h1>
+            <p class="lead text-secondary">
+                Gerencie seus clientes de forma eficiente.<br />
+                Cadastre novos clientes, busque informações e mantenha seu cadastro sempre atualizado.
+            </p>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-md-6">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body text-center">
+                    <i class="bi bi-person-plus display-4 text-success"></i>
+                    <h5 class="card-title mt-3">Cadastrar Novo Cliente</h5>
+                    <p class="card-text">Adicione um novo cliente ao sistema de forma rápida e fácil.</p>
+                    <a class="btn btn-success" asp-action="Cadastrar">
+                        <i class="bi bi-person-plus"></i> Cadastrar
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body text-center">
+                    <i class="bi bi-search display-4 text-primary"></i>
+                    <h5 class="card-title mt-3">Buscar Cliente</h5>
+                    <p class="card-text">Encontre rapidamente clientes cadastrados pelo nome ou outros critérios.</p>
+                    <a class="btn btn-outline-primary" asp-action="BuscarClientes">
+                        <i class="bi bi-search"></i> Buscar
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,7 +1,7 @@
 ﻿<header class="container-fluid p-0">
     <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="light">
-        <div class="container-lg">
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">PrimeiroProjeto</a>
+        <div class="container-fluid">
+			<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/img/cav.png" /></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -19,10 +19,12 @@
                             <a class="nav-link" asp-area="" asp-controller="Cliente" asp-action="Cadastrar">Cadastrar Cliente</a>
                             <a class="nav-link" asp-area="" asp-controller="Cliente" asp-action="BuscarClientes">Buscar Clientes</a>
                         </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="Produto" asp-action="Cadastrar">Cadastrar Produto</a>
-                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Produtos</a>
+                        <div class="dropdown-menu">
+                            <a class="nav-link" asp-area="" asp-controller="Produto" asp-action="Cadastrar">Cadastrar Produto</a>
+                            <a class="nav-link" asp-area="" asp-controller="Produto" asp-action="BuscarProdutos">Buscar Produtos</a>
+                        </div>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
                         <div class="dropdown-menu">
