@@ -5,39 +5,49 @@
 }
 <div class="container-fluid d-flex  flex-column ">
 
-        <form asp-controller="Cliente" asp-action="BuscarClientes" method="get">
+    <form asp-controller="Cliente" asp-action="BuscarClientes" method="get">
         <input class="w-50" type="text" name="searchString" value="@Context.Request.Query["searchString"]" placeholder="Digite o nome do cliente..." />
         <button class="w-25 bg-primary" type="submit">Buscar</button>
-        </form>
+    </form>
 
     @if (Model.Any())
     {
-        <table class="table my-1 text-black fw-light">
-            <thead>
+        <table class="table my-1 text-black fw-light table-striped">
+            <thead class="table-light border-1">
                 <tr>
-                    <th>Nome</th>
-                    <th>Telefone</th>
-                    <th>Email</th>
-                    <th>Data de Cadastro</th>
+                    <th>@Html.DisplayNameFor(model => model.First().Id)</th>
+                    <th>@Html.DisplayNameFor(model => model.First().Nome)</th>
+                    <th>@Html.DisplayNameFor(model => model.First().Telefone)</th>
+                    <th>@Html.DisplayNameFor(model => model.First().Email)</th>
+                    <th>@Html.DisplayNameFor(model => model.First().DataCadastro)</th>
+                    <th>Ações</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="border-2">
                 @foreach (var cliente in Model)
                 {
                     <tr>
+                        <td>@cliente.Id</td>
                         <td>@cliente.Nome</td>
                         <td>@cliente.Telefone</td>
                         <td>@cliente.Email</td>
                         <td>@cliente.DataCadastro.ToString("dd/MM/yyyy")</td>
+                        <td class="d-flex gap-3 ">
+                            <a asp-action="Alterar" asp-route-Id="@cliente.Id" class="text-dark"><i class="bi bi-pencil-square"></i></a>
+                            @* <a asp-action="Alterar" asp-route-Id="@cliente.Id" class="btn btn-outline-danger text-dark">Alterar</a> *@
+                            <form asp-action="Deletar" asp-route-id="@cliente.Id" method="post" class="d-inline"
+                            onsubmit="return confirm('Tem certeza que deseja excluir este cliente?');">
+                            <button type="submit" class="btn btn-link p-0 m-0 align-baseline text-black" title="Excluir">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                            </form>
+                        </td>
                     </tr>
                 }
             </tbody>
         </table>
 
-        @* <div class="row">
-    <div class="col text-center"> SE QUISER CENTRALIZAR *@
-
-        <div class="">
+       <div class="">
             @Html.PagedListPager(Model, page => Url.Action("BuscarClientes", new
                 {
                     page,

@@ -19,6 +19,12 @@ namespace PrimeiroProjeto.Controllers
             _context = context;
         }
 
+       
+        public IActionResult Index()
+        {
+            return View();
+        }
+
         [HttpGet]
         public IActionResult Cadastrar()
         {
@@ -32,7 +38,11 @@ namespace PrimeiroProjeto.Controllers
             cliente.DataCadastro = DateTime.Now;
             if (ModelState.IsValid)
             {
-                _context.Add(cliente);
+                if (cliente.Id == 0)
+                    _context.Add(cliente);
+                else
+                    _context.Update(cliente);
+
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index", "Home");
             }
@@ -52,11 +62,37 @@ namespace PrimeiroProjeto.Controllers
             int pageSize = 10;
             int pageNumber = page ?? 1;
 
-            var pagedList = await clientes.OrderBy(c => c.Nome).ToPagedListAsync(pageNumber, pageSize);
+            var pagedList = await clientes.OrderBy(c => c.Id).ToPagedListAsync(pageNumber, pageSize);
 
             ViewBag.SearchString = searchString;
 
             return View(pagedList);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Alterar(int id)
+        {
+            //await _context.Clientes.Where(x => x.Id == id).FirstAsync();
+            var cliente = await _context.Clientes.FindAsync(id);
+            if (cliente == null)
+            {
+                return NotFound();
+            }
+            return View("Cadastrar", cliente);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Deletar(int id)
+        {
+            var cliente = await _context.Clientes.FindAsync(id);
+            
+            if (cliente != null)
+            {
+                _context.Clientes.Remove(cliente);
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction("BuscarClientes", "Cliente");
+        }
+
+       
     }
 }
