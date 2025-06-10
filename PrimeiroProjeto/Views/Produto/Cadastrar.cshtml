@@ -1,37 +1,42 @@
 ﻿@model PrimeiroProjeto.Models.Produto
 
 @{
-    ViewData["Title"] = "Cadastrar Produto";
+    if (Model == null)
+        ViewData["Title"] = "Cadastrar Produto";
+    else
+        ViewData["Title"] = "Alterar Produto";
 }
 
-<h2>Criar Produto</h2>
-
-<form asp-action="Cadastrar">
-    <div class="form-group">
-        <label asp-for="Nome" class="control-label"></label>
-        <input asp-for="Nome" class="form-control" />
-        <span asp-validation-for="Nome" class="text-danger"></span>
+<div class="container-fluid d-flex  flex-column justify-content-center align-items-start">
+    <h2>@ViewData["Title"]</h2>
+    <hr />
+    <div class="row" style="width:600px">
+        <div class="col-md-8">
+            <form asp-action="Cadastrar">
+                <input asp-for="Id" type="hidden" />
+                <div class="form-group">
+                    <label asp-for="Nome" class="control-label"></label>
+                    <input asp-for="Nome" class="form-control" />
+                    <span asp-validation-for="Nome" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Quantidade" class="control-label"></label>
+                    <input asp-for="Quantidade" class="form-control" />
+                    <span asp-validation-for="Quantidade" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Categoria" class="control-label"></label>
+                    <input asp-for="Categoria" class="form-control" />
+                    <span asp-validation-for="Categoria" class="text-danger"></span>
+                </div>
+                <div class="form-group mt-3">
+                    <input type="submit" value="Salvar" class="btn btn-primary" />
+                    <a class="btn btn-primary" asp-controller="Home" asp-action="Index">Voltar para a lista</a>
+                </div>
+            </form>
+        </div>
     </div>
-
-    <div class="form-group">
-        <label asp-for="Quantidade" class="control-label"></label>
-        <input asp-for="Quantidade" class="form-control" />
-        <span asp-validation-for="Quantidade" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Categoria" class="control-label"></label>
-        <input asp-for="Categoria" class="form-control" />
-        <span asp-validation-for="Categoria" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Preco" class="control-label"></label>
-        <input asp-for="Preco" class="form-control" />
-        <span asp-validation-for="Preco" class="text-danger"></span>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Salvar</button>
-</form>
+</div>
 
 
 
